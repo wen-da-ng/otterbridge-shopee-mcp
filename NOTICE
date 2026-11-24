@@ -1,0 +1,19 @@
+THIRD-PARTY NOTICES
+
+otterbridge-shopee-mcp bundles the packages below into server/index.js. Each remains under its own licence;
+their licence comments are kept at the end of that file.
+
+- @modelcontextprotocol/sdk@1.32.2 — MIT
+- ajv@8.20.0 — MIT
+- ajv-formats@3.0.1 — MIT
+- fast-deep-equal@3.1.3 — MIT
+- fast-uri@3.1.9 — BSD-3-Clause
+- json-schema-traverse@1.0.0 — MIT
+- zod@4.6.7 — MIT
+- zod-to-json-schema@3.25.2 — ISC
+
+server/data/api-registry.json is a catalogue of endpoint names, parameters and descriptions
+compiled from the Shopee Open Platform API v2 documentation (https://open.shopee.com).
+
+This product is not affiliated with, endorsed by, or sponsored by Shopee or Sea Limited.
+Shopee is a trademark of Shopee Pte. Ltd.
