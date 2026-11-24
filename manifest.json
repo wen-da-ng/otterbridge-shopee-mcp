@@ -1,0 +1,265 @@
+{
+  "manifest_version": "0.2",
+  "name": "otterbridge-shopee-mcp",
+  "display_name": "Shopee - OtterBridge",
+  "version": "0.3.1",
+  "description": "Run your Shopee shop from your AI assistant — 32 tools for products, orders, shipping, returns and reports, plus every Shopee Open API v2 endpoint.",
+  "long_description": "Connects your own Shopee shop through the official Shopee Open Platform API v2, using your own developer app (Partner ID and Key from open.shopee.com).\n\nCreate listings in bulk from spreadsheet rows, change prices and stock by rule (\"all T-shirts +RM2, ending in .90\"), ship the day's orders and save the airway bills, handle returns, and get sales, fee and profit reports. Anything else in Shopee's API (vouchers, discounts, flash sales, ads, ...) is reachable through a bundled catalogue of all 454 v2 endpoints.\n\nNothing changes your shop without your OK: every write tool only returns a preview, and one tool, shopee_apply_plan, carries it out after you approve. Tokens stay on your computer.\n\nNot affiliated with Shopee.",
+  "author": {
+    "name": "wen-da-ng",
+    "email": "lenus.ng.wen.da@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wen-da-ng/otterbridge-shopee-mcp.git"
+  },
+  "homepage": "https://otterbridge.studio",
+  "documentation": "https://github.com/wen-da-ng/otterbridge-shopee-mcp",
+  "support": "https://github.com/wen-da-ng/otterbridge-shopee-mcp/issues",
+  "license": "GPL-3.0-only",
+  "keywords": [
+    "shopee",
+    "ecommerce",
+    "seller",
+    "orders",
+    "inventory",
+    "mcp",
+    "claude",
+    "otterbridge"
+  ],
+  "server": {
+    "type": "node",
+    "entry_point": "server/index.js",
+    "mcp_config": {
+      "command": "node",
+      "args": [
+        "${__dirname}/server/index.js"
+      ],
+      "env": {
+        "SHOPEE_PARTNER_ID": "${user_config.partner_id}",
+        "SHOPEE_PARTNER_KEY": "${user_config.partner_key}",
+        "SHOPEE_ENV": "${user_config.environment}",
+        "SHOPEE_REGION": "${user_config.region}",
+        "SHOPEE_REDIRECT_URI": "${user_config.redirect_uri}",
+        "SHOPEE_SHOP_ID": "${user_config.shop_id}",
+        "SHOPEE_READ_ONLY": "${user_config.read_only}",
+        "SHOPEE_TOOLSETS": "${user_config.toolsets}",
+        "SHOPEE_EXPORT_DIR": "${user_config.export_dir}",
+        "SHOPEE_TZ_OFFSET_HOURS": "${user_config.tz_offset_hours}"
+      }
+    }
+  },
+  "user_config": {
+    "partner_id": {
+      "type": "string",
+      "title": "Partner ID",
+      "description": "From your app at open.shopee.com/console/app. Use the Test Partner_id with the sandbox, the Live one with production.",
+      "required": true
+    },
+    "partner_key": {
+      "type": "string",
+      "title": "Partner Key",
+      "description": "The API Partner Key shown next to the Partner ID (click the eye icon). Kept in your system's secure storage.",
+      "required": true,
+      "sensitive": true
+    },
+    "environment": {
+      "type": "string",
+      "title": "Environment",
+      "description": "sandbox (test shops, Test credentials) or production (your real shop, Live credentials after Go-Live).",
+      "default": "sandbox",
+      "required": true
+    },
+    "region": {
+      "type": "string",
+      "title": "API region",
+      "description": "global (default, all markets), cn (servers in mainland China) or br (Brazil).",
+      "default": "global",
+      "required": false
+    },
+    "redirect_uri": {
+      "type": "string",
+      "title": "Redirect URL",
+      "description": "Where Shopee sends you after you authorize a shop. Leave the default so the server catches it on this computer.",
+      "default": "http://localhost:8787/callback",
+      "required": false
+    },
+    "shop_id": {
+      "type": "string",
+      "title": "Default shop ID (optional)",
+      "description": "Only if you authorize several shops: the one used when a request doesn't name a shop. Otherwise set automatically.",
+      "default": "",
+      "required": false
+    },
+    "read_only": {
+      "type": "boolean",
+      "title": "Read-only",
+      "description": "Look but never change: removes the tools that apply changes. Good for a reporting-only assistant.",
+      "default": false,
+      "required": false
+    },
+    "toolsets": {
+      "type": "string",
+      "title": "Tool groups (optional)",
+      "description": "Leave blank for everything. Or a comma list of core, catalog, insights — e.g. \"core,insights\" for orders and reports only.",
+      "default": "",
+      "required": false
+    },
+    "export_dir": {
+      "type": "directory",
+      "title": "Save files to",
+      "description": "Where shipping labels and other files are saved.",
+      "default": "${HOME}/shopee-mcp-exports",
+      "required": false
+    },
+    "tz_offset_hours": {
+      "type": "string",
+      "title": "Time zone offset (hours)",
+      "description": "Used to group reports by day. 8 for Malaysia, Singapore, the Philippines and Taiwan; 7 for Thailand, Vietnam and Indonesia (WIB); -3 for Brazil.",
+      "default": "8",
+      "required": false
+    }
+  },
+  "tools": [
+    {
+      "name": "shopee_auth_start",
+      "description": "Create the link a seller opens to authorize this app on their Shopee shop."
+    },
+    {
+      "name": "shopee_auth_complete",
+      "description": "Exchange the one-time `code` from the redirect URL for tokens."
+    },
+    {
+      "name": "shopee_auth_status",
+      "description": "Show configuration, the pending authorization (if any), and every authorized shop (name, region, status, token expiry)."
+    },
+    {
+      "name": "shopee_set_default_shop",
+      "description": "Pick which authorized shop tools use when shop_id is omitted."
+    },
+    {
+      "name": "shopee_apply_plan",
+      "description": "Execute a plan created by a write tool (shopee_products_update, shopee_products_delete, shopee_api_write, …)."
+    },
+    {
+      "name": "shopee_list_plans",
+      "description": "Plans created but not yet applied (id, what they do, minutes left)."
+    },
+    {
+      "name": "shopee_search_api",
+      "description": "Find any of the 454 Shopee Open API v2 endpoints by keyword and/or module (e.g."
+    },
+    {
+      "name": "shopee_describe_api",
+      "description": "Full spec of one endpoint: method, auth level, who may call it, request parameters (* = required, with descriptions), response fields, docs link, and a ready-to-fill example for shopee_api_read / shop"
+    },
+    {
+      "name": "shopee_api_read",
+      "description": "Call any Shopee Open API v2 endpoint that only reads data (GET, or POST endpoints named get_/search_/query_/check_)."
+    },
+    {
+      "name": "shopee_api_write",
+      "description": "Plan a call to any Shopee Open API v2 endpoint that changes data (vouchers, discounts, flash sales, bundle deals, shop settings, logistics, ...)."
+    },
+    {
+      "name": "shopee_orders_list",
+      "description": "Orders in any date range (default last 7 days; long ranges are fetched in 15-day windows) as compact rows, with counts by status."
+    },
+    {
+      "name": "shopee_ship_orders",
+      "description": "Arrange shipment for orders that are ready to ship: all READY_TO_SHIP orders (default) or the given order_sns."
+    },
+    {
+      "name": "shopee_shipping_labels",
+      "description": "Create and download the airway bills (shipping labels) for orders whose shipment is arranged: all PROCESSED orders (default) or the given order_sns."
+    },
+    {
+      "name": "shopee_returns_list",
+      "description": "Return and refund requests as compact rows: reason, buyer note, refund amount, status and the date you must respond by."
+    },
+    {
+      "name": "shopee_return_action",
+      "description": "Respond to a return or refund request: accept it (buyer gets the refund), offer a different solution or amount, accept the buyer's counter-offer, or dispute it with Shopee (reason + evidence images)."
+    },
+    {
+      "name": "shopee_products_export",
+      "description": "Products as rows, one per SKU (each variation, or the product itself when it has no variations), with chosen fields."
+    },
+    {
+      "name": "shopee_products_update",
+      "description": "Change price, stock, status (live/unlisted) and product details (name, description, images, weight, package size, condition, pre-order, product SKU) for many products at once."
+    },
+    {
+      "name": "shopee_products_delete",
+      "description": "Permanently delete products by item_id or SKU."
+    },
+    {
+      "name": "shopee_products_import",
+      "description": "Create many products at once from rows (e.g."
+    },
+    {
+      "name": "shopee_find_category",
+      "description": "Find the category_id for a new listing."
+    },
+    {
+      "name": "shopee_get_category_requirements",
+      "description": "Everything needed to fill shopee_products_import rows for one category: attributes (mandatory first) with allowed values, brand options, and limits (price range, name/description length, image count, "
+    },
+    {
+      "name": "shopee_list_logistics_channels",
+      "description": "Shipping channels for the shop (v2.logistics.get_channel_list): id, name, enabled, fee type, sizes, weight limits."
+    },
+    {
+      "name": "shopee_reviews_list",
+      "description": "Buyer reviews (v2.product.get_comment), newest first, with a rating summary for the page."
+    },
+    {
+      "name": "shopee_upload_images",
+      "description": "Upload JPG/PNG images (local file paths or http(s) URLs, max 10 MB each) to Shopee media space and get image_ids for listings."
+    },
+    {
+      "name": "shopee_set_variations",
+      "description": "Turn an existing product without variations into one with up to 2 tiers (v2.product.init_tier_variation)."
+    },
+    {
+      "name": "shopee_reviews_reply",
+      "description": "Seller replies to up to 100 buyer reviews (v2.product.reply_comment)."
+    },
+    {
+      "name": "shopee_boost_items",
+      "description": "Without item_ids: list currently boosted products and cooldowns."
+    },
+    {
+      "name": "shopee_catalog_report",
+      "description": "Snapshot of every product: status counts, stock units and value, out-of-stock and low-stock variations, best sellers and most viewed (lifetime), products with views but no sales, low ratings, and thin"
+    },
+    {
+      "name": "shopee_sales_report",
+      "description": "Orders created in a date range (default last 30 days; any length, fetched in 15-day windows): order and unit counts, GMV, average order value, status breakdown, cancellation rate, unique/repeat buyers"
+    },
+    {
+      "name": "shopee_finance_report",
+      "description": "Money actually released to the seller for orders settled in a date range (default last 30 days): payout total, gross sales, Shopee fees (commission, service, transaction, affiliate), shipping cost and"
+    },
+    {
+      "name": "shopee_shop_health",
+      "description": "Shopee account health in one call: overall performance rating, every metric vs its target (failing ones flagged), listings with issues, late orders, and penalty points this quarter."
+    },
+    {
+      "name": "shopee_listing_quality",
+      "description": "Shopee's content diagnosis for listings (v2.product.get_item_content_diagnosis_result): quality level (TO_BE_IMPROVED / QUALIFIED / EXCELLENT) and concrete fixes (too few images, short description, mi"
+    }
+  ],
+  "prompts_generated": true,
+  "compatibility": {
+    "claude_desktop": ">=0.10.0",
+    "platforms": [
+      "win32",
+      "darwin",
+      "linux"
+    ],
+    "runtimes": {
+      "node": ">=20.12.0"
+    }
+  }
+}

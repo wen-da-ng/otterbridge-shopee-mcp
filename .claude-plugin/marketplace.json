@@ -1,0 +1,26 @@
+{
+  "name": "otterbridge",
+  "owner": {
+    "name": "wen-da-ng",
+    "email": "lenus.ng.wen.da@gmail.com"
+  },
+  "plugins": [
+    {
+      "name": "otterbridge-shopee-mcp",
+      "displayName": "Shopee - OtterBridge",
+      "source": "./",
+      "description": "OtterBridge Shopee MCP: 32 tools to run your own Shopee shop (products, orders, shipping, returns, reports) through Shopee Open Platform API v2, with preview-then-apply for every change.",
+      "keywords": [
+        "shopee",
+        "ecommerce",
+        "seller",
+        "orders",
+        "inventory",
+        "mcp",
+        "claude",
+        "otterbridge"
+      ]
+    }
+  ],
+  "description": "The OtterBridge family of MCP plugins by wen-da-ng — bridges from Claude to the tools you already live in (Shopee; sibling projects: WhatsApp, SolidWorks, Chrome)."
+}

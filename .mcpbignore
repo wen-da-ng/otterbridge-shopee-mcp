@@ -1,0 +1,18 @@
+# Credentials and tokens must never be packed into a distributed bundle.
+.env
+.env.*
+*.tokens.json
+tokens*.json
+
+# Repo scaffolding the end user does not need
+.git/
+.gitignore
+.gitattributes
+.mcpbignore
+
+# Claude Code plugin wiring — shipped by the repo, not by the .mcpb
+.claude-plugin/
+.mcp.json
+
+# A built bundle never goes inside the next one.
+*.mcpb

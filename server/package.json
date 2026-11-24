@@ -1,0 +1,10 @@
+{
+  "name": "otterbridge-shopee-mcp-server",
+  "version": "0.3.1",
+  "private": true,
+  "type": "module",
+  "main": "index.js",
+  "engines": {
+    "node": ">=20.12.0"
+  }
+}

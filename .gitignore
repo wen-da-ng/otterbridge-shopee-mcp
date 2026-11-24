@@ -1,0 +1,11 @@
+# Shopee credentials and shop tokens are LIVE CREDENTIALS: with them anyone can
+# act on the shop through the API. Never commit them.
+.env
+.env.*
+*.tokens.json
+tokens*.json
+
+/node_modules/
+*.log
+.DS_Store
+Thumbs.db
