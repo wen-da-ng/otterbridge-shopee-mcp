@@ -1,8 +1,6 @@
 <div align="center">
 
-<!-- Logo goes here once it exists: static/otterbridge-shopee-mcp-wide.png
 <img src="static/otterbridge-shopee-mcp-wide.png" alt="Shopee - OtterBridge" width="440"/>
--->
 
 # Shopee - OtterBridge
 
@@ -380,6 +378,7 @@ manifest.json                   MCPB manifest the .mcpb is built from
 docs/API_CATALOG.md             every endpoint, what this app type can call, links to Shopee's docs
 CHANGELOG.md                    what changed in each release
 NOTICE                          third-party attribution
+static/                         icons
 ```
 
 Everything here is produced by the build in a private source repo and copied in whole, so

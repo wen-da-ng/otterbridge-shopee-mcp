@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.3.2 — 2026-11-25
+
+### Added
+
+- **The OtterBridge Shopee otter.** The extension now has its icon in Claude Desktop, and
+  the README its banner (`static/`).
+
+No change to the tools.
+
 ## 0.3.1 — 2026-11-25
 
 First release: a Claude Desktop extension (`otterbridge-shopee-mcp.mcpb`), a Claude Code
