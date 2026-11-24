@@ -40854,7 +40854,7 @@ function registerTools(server, client) {
 }
 
 // src/index.ts
-var VERSION = "0.3.1";
+var VERSION = "0.3.2";
 async function main() {
   const cfg = loadConfig();
   const client = new ShopeeClient(cfg);

@@ -2,7 +2,7 @@
   "manifest_version": "0.2",
   "name": "otterbridge-shopee-mcp",
   "display_name": "Shopee - OtterBridge",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "Run your Shopee shop from your AI assistant — 32 tools for products, orders, shipping, returns and reports, plus every Shopee Open API v2 endpoint.",
   "long_description": "Connects your own Shopee shop through the official Shopee Open Platform API v2, using your own developer app (Partner ID and Key from open.shopee.com).\n\nCreate listings in bulk from spreadsheet rows, change prices and stock by rule (\"all T-shirts +RM2, ending in .90\"), ship the day's orders and save the airway bills, handle returns, and get sales, fee and profit reports. Anything else in Shopee's API (vouchers, discounts, flash sales, ads, ...) is reachable through a bundled catalogue of all 454 v2 endpoints.\n\nNothing changes your shop without your OK: every write tool only returns a preview, and one tool, shopee_apply_plan, carries it out after you approve. Tokens stay on your computer.\n\nNot affiliated with Shopee.",
   "author": {
@@ -16,6 +16,7 @@
   "homepage": "https://otterbridge.studio",
   "documentation": "https://github.com/wen-da-ng/otterbridge-shopee-mcp",
   "support": "https://github.com/wen-da-ng/otterbridge-shopee-mcp/issues",
+  "icon": "static/otterbridge-shopee-mcp.png",
   "license": "GPL-3.0-only",
   "keywords": [
     "shopee",
